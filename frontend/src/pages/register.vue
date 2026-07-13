@@ -6,16 +6,22 @@ import Input from '../components/Input.vue'
 import Typography from '../components/Typography.vue'
 
 defineOptions({
-  name: 'LoginPage',
+  name: 'RegisterPage',
 })
 
-const login = ref('')
+const email = ref('')
+const username = ref('')
 const password = ref('')
-const rememberMe = ref(false)
+const passwordConfirm = ref('')
 const isPasswordVisible = ref(false)
+const isPasswordConfirmVisible = ref(false)
 
 function togglePasswordVisibility() {
   isPasswordVisible.value = !isPasswordVisible.value
+}
+
+function togglePasswordConfirmVisibility() {
+  isPasswordConfirmVisible.value = !isPasswordConfirmVisible.value
 }
 </script>
 
@@ -24,16 +30,24 @@ function togglePasswordVisibility() {
     <div class="login-card">
       <div class="login-card__header">
         <Typography tag="h1" variant="heading-md" text-align="center">
-          Авторизация
+          Регистрация
         </Typography>
       </div>
 
       <form class="login-card__form" @submit.prevent>
         <div class="login-card__fields">
           <Input
-            v-model="login"
-            name="login"
-            placeholder="Логин или почта"
+            v-model="email"
+            name="email"
+            type="email"
+            placeholder="Почта"
+            autocomplete="email"
+          />
+
+          <Input
+            v-model="username"
+            name="username"
+            placeholder="Имя пользователя"
             autocomplete="username"
           />
 
@@ -43,7 +57,7 @@ function togglePasswordVisibility() {
               name="password"
               :type="isPasswordVisible ? 'text' : 'password'"
               placeholder="Пароль"
-              autocomplete="current-password"
+              autocomplete="new-password"
             >
               <template #append>
                 <button
@@ -73,24 +87,48 @@ function togglePasswordVisibility() {
                 </button>
               </template>
             </Input>
+          </div>
 
-            <button type="button" class="login-card__forgot">
-              <Typography tag="span" variant="body-sm" color="Subdued">
-                Восстановить пароль
-              </Typography>
-            </button>
+          <div class="login-card__password">
+            <Input
+              v-model="passwordConfirm"
+              name="password-confirm"
+              :type="isPasswordConfirmVisible ? 'text' : 'password'"
+              placeholder="Повторите пароль"
+              autocomplete="new-password"
+            >
+              <template #append>
+                <button
+                  type="button"
+                  class="login-card__eye"
+                  :aria-label="
+                    isPasswordConfirmVisible
+                      ? 'Скрыть пароль'
+                      : 'Показать пароль'
+                  "
+                  @click="togglePasswordConfirmVisibility"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+                    <path
+                      d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="3"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    />
+                  </svg>
+                </button>
+              </template>
+            </Input>
           </div>
         </div>
-
-        <label class="login-card__checkbox">
-          <input
-            v-model="rememberMe"
-            type="checkbox"
-            class="login-card__checkbox-input"
-          />
-          <span class="login-card__checkbox-box"></span>
-          <Typography tag="span" variant="body-sm">Запомнить данные</Typography>
-        </label>
 
         <div class="login-card__actions">
           <Button
@@ -98,7 +136,7 @@ function togglePasswordVisibility() {
             content-align="center"
             class="login-card__submit"
           >
-            Войти
+            Зарегистрироваться
           </Button>
 
           <Typography
@@ -107,10 +145,8 @@ function togglePasswordVisibility() {
             color="Subdued"
             text-align="center"
           >
-            Нет аккаунта?
-            <Button variant="callback" :to="{ name: 'register' }">
-              Зарегистрироваться
-            </Button>
+            Уже есть аккаунт?
+            <Button variant="callback" :to="{ name: 'login' }"> Войти </Button>
           </Typography>
         </div>
       </form>
@@ -173,49 +209,6 @@ function togglePasswordVisibility() {
     padding: 0;
     color: var(--Icon-Default);
     cursor: pointer;
-  }
-
-  &__forgot {
-    align-self: flex-start;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-  }
-
-  &__checkbox {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-  }
-
-  &__checkbox-input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
-  &__checkbox-box {
-    display: inline-flex;
-    width: 1.125rem;
-    height: 1.125rem;
-    flex-shrink: 0;
-    border-radius: 0.25rem;
-    border: 1px solid var(--Border-Default);
-    background: var(--Surface-Default);
-    transition: all 0.2s ease;
-  }
-
-  &__checkbox-input:checked + &__checkbox-box {
-    background: var(--Icon-Highlight);
-    border-color: var(--Icon-Highlight);
   }
 
   &__actions {

@@ -79,7 +79,7 @@ const inputId = props.id || useId()
     border-radius: 0.25rem;
     border: 1px solid var(--Text-input-border);
     background: var(--Surface-Default);
-    padding: 0.5rem 0.75rem;
+    padding: 0.75rem;
   }
 
   &__control {

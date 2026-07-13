@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue'
+import type { RouteLocationRaw } from 'vue-router'
 
 import { computed } from 'vue'
+import { RouterLink } from 'vue-router'
 
 type Variant =
   | 'callback'
@@ -42,6 +44,8 @@ const props = withDefaults(
     position?: IconPosition
     gap?: CSSProperties['gap']
     fullWidth?: boolean
+    to?: RouteLocationRaw
+    disabled?: boolean
   }>(),
   {
     variant: 'primary',
@@ -56,8 +60,12 @@ const props = withDefaults(
     }),
     gap: '0.25rem',
     fullWidth: false,
+    to: undefined,
+    disabled: false,
   },
 )
+
+const tag = computed(() => (props.to ? RouterLink : 'button'))
 
 const DEFAULT_ICON_POSITION: Required<IconPosition> = {
   absolute: false,
@@ -127,7 +135,13 @@ const iconStyle = computed(() => {
 </script>
 
 <template>
-  <button type="button" :class="classes">
+  <component
+    :is="tag"
+    :type="to ? undefined : 'button'"
+    :to="to"
+    :disabled="to ? undefined : disabled"
+    :class="classes"
+  >
     <div :class="innerClasses">
       <span v-if="$slots.icon" :class="iconClasses" :style="iconStyle">
         <slot name="icon" />
@@ -137,7 +151,7 @@ const iconStyle = computed(() => {
       </span>
     </div>
     <span v-if="variant === 'burger'" class="burger-span"></span>
-  </button>
+  </component>
 </template>
 
 <style lang="scss" scoped>
