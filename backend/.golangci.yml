@@ -1,0 +1,74 @@
+version: "2"
+
+linters:
+  default: none
+  enable:
+    - errcheck
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - bodyclose
+    - errorlint
+    - gocritic
+    - gosec
+    - mnd
+    - whitespace
+    - lll
+
+  settings:
+    gocritic:
+      enabled-tags:
+        - diagnostic
+        - performance
+        - style
+    mnd:
+      ignored-numbers:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '10'
+        - '100'
+    lll:
+      line-length: 120
+    govet:
+      enable:
+        - nilness
+        - shadow
+
+  exclusions:
+    presets:
+      - comments
+      - std-error-handling
+      - common-false-positives
+    rules:
+      - path: (.+)_test\.go
+        linters:
+          - mnd
+          - lll
+          - goconst
+          - gosec
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+    - gci
+    - golines
+  settings:
+    gci:
+      sections:
+        - standard
+        - default
+        - prefix(github.com/Oliver1ck/docs)
+      custom-order: true
+    gofmt:
+      rewrite-rules:
+        - pattern: 'interface{}'
+          replacement: 'any'
+    golines:
+      max-len: 120
+    goimports:
+      local-prefixes:
+        - github.com/Oliver1ck/docs
