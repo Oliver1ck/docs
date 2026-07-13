@@ -17,6 +17,8 @@ type Variant =
   | 'select'
   | 'primary'
   | 'none'
+  | 'text'
+
 
 type ControlVariant = 'primary' | 'secondary'
 type TextAlign = 'left' | 'center' | 'right' | 'inherit'
@@ -165,6 +167,15 @@ const iconStyle = computed(() => {
     width: 100%;
   }
 
+  &--text {
+    font-feature-settings: "liga" off, "clig" off;
+    font-family: "SF Pro Text";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.25rem;
+  }
+
   &--primary {
     padding: 0.75rem 1.5rem;
     border-radius: 0.25rem;
@@ -247,6 +258,7 @@ const iconStyle = computed(() => {
     font-style: normal;
     font-weight: 400;
     line-height: 1.25rem; /* 142.857% */
+    display: inline-flex;
   }
   &--outlined {
     padding: 0.5rem 1rem;
