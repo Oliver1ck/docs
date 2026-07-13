@@ -1,0 +1,65 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "vue"],
+  "jsPlugins": [
+    {
+      "name": "perfectionist",
+      "specifier": "eslint-plugin-perfectionist"
+    }
+  ],
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "no-console": "off",
+    "prefer-const": [
+      "error",
+      {
+        "destructuring": "all",
+        "ignoreReadBeforeAssign": false
+      }
+    ],
+    "perfectionist/sort-imports": [
+      "error",
+      {
+        "type": "natural",
+        "order": "asc",
+        "newlinesBetween": 1,
+        "customGroups": [
+          {
+            "groupName": "components",
+            "elementNamePattern": ["^@components/"]
+          },
+          {
+            "groupName": "data",
+            "elementNamePattern": ["^@data/"]
+          }
+        ],
+        "groups": [
+          "type",
+          ["builtin", "external"],
+          "components",
+          "data",
+          "internal",
+          ["parent", "sibling", "index"],
+          "unknown"
+        ]
+      }
+    ]
+  },
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/.nuxt/**",
+    "**/.output/**",
+    "**/coverage/**",
+    "**/.histoire/**",
+    "**/public/**",
+    "**/.github/**"
+  ],
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "es2022": true
+  }
+}

@@ -1,0 +1,134 @@
+.container {
+  max-width: 49.25rem;
+  margin: 0 auto;
+  padding: 0 0.62rem;
+}
+
+.wrapper {
+  padding-top: 2.5rem;
+}
+
+@media (min-width: 993px) and (max-width: 1023px) {
+  .wrapper {
+    padding-top: 7.79rem;
+  }
+}
+@media (min-width: 993px) {
+  .container {
+    max-width: 75rem;
+    padding: 0 0.938rem;
+  }
+}
+@media (min-width: 1023px) {
+  .wrapper {
+    padding-top: 6.125rem;
+  }
+}
+
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  color: #000;
+  min-height: 100%;
+  background: var(--Background-Default);
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 16px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+.Notivue__content-message {
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+  font-family: 'SF Pro Text';
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem; /* 142.857% */
+}
+
+body {
+  overflow-x: hidden;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+/*--------------------*/

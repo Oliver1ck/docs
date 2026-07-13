@@ -1,0 +1,52 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "printWidth": 80,
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "css",
+  "vueIndentScriptAndStyle": false,
+  "singleAttributePerLine": false,
+  "bracketSameLine": false,
+  "sortImports": {
+    "newlinesBetween": true,
+    "internalPattern": [
+      "^~/",
+      "^@/",
+      "^@assets/",
+      "^@components/",
+      "^@composables/",
+      "^@data/",
+      "^@layouts/",
+      "^@pages/",
+      "^@custom-types/"
+    ],
+    "customGroups": [
+      {
+        "groupName": "components",
+        "selector": "internal",
+        "elementNamePattern": ["^@components/**"]
+      },
+      {
+        "groupName": "data",
+        "selector": "internal",
+        "elementNamePattern": ["^@data/**"]
+      }
+    ],
+    "groups": [
+      "type",
+      ["builtin", "external"],
+      "components",
+      "data",
+      ["internal", "subpath"],
+      ["parent", "sibling", "index"],
+      "unknown"
+    ]
+  },
+  "ignorePatterns": []
+}
