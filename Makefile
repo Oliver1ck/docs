@@ -1,9 +1,9 @@
-include .env
+BACKEND_DIR := backend
+
+include $(BACKEND_DIR)/.env
 export
 
 export ROOT=$(shell pwd)
-
-BACKEND_DIR := backend
 
 # --- TG Generator ---
 TG_VER ?= 2.3.95
@@ -14,6 +14,9 @@ TG_OUTPUT ?= $(BACKEND_DIR)/internal/api/transport
 
 # Универсальная команда: переменная безвредна на *nix, обязательна на Windows
 DOCKER := MSYS_NO_PATHCONV=1 docker
+
+# Создаем алиас для compose с явным указанием путей к конфигам
+COMPOSE := $(DOCKER) compose -f $(BACKEND_DIR)/docker-compose.yaml --env-file $(BACKEND_DIR)/.env
 
 .PHONY: tg-build
 tg-build:
@@ -28,22 +31,22 @@ tg-generate: tg-build
 
 .PHONY: db-up
 db-up:
-	@$(DOCKER) compose up -d db
+	@$(COMPOSE) up -d db
 
 .PHONY: db-down
 db-down:
-	@$(DOCKER) compose down db
+	@$(COMPOSE) down db
 
 .PHONY: migrate-up
 migrate-up:
-	@$(DOCKER) compose up --build migrator
+	@$(COMPOSE) up --build migrator
 
 .PHONY: migrate-down
 migrate-down:
-	@$(DOCKER) compose run --rm migrator ./migrator-app down
+	@$(COMPOSE) run --rm migrator ./migrator-app down
 
-.PHONY: run-petstore
-run-petstore: 
+.PHONY: run-backend
+run-backend: 
 	@cd $(BACKEND_DIR) && go run ./cmd/docs_api
 
 .PHONY: lint
