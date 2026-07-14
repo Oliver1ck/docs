@@ -1,0 +1,32 @@
+# @format
+name: ${PROJECT_NAME}
+services:
+  db:
+    image: postgres:18.1-bookworm
+    container_name: petstore_db
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - ${ROOT}/out/pgdata:/var/lib/postgresql
+    restart: always
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER} -d ${DB_NAME}']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  migrator:
+    build:
+      context: .
+      dockerfile: ./migrations/Dockerfile
+    env_file:
+      - .env
+    container_name: goose_migrator
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: 'postgres://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}?sslmode=${DB_SSLMODE}'
