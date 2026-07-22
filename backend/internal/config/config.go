@@ -9,8 +9,8 @@ type Config struct {
 	SERVER_PORT string `required:"true" envconfig:"SERVER_PORT"`
 
 	Postgres Postgres
-
-	Logger Logger
+	JWT      JWT
+	Logger   Logger
 }
 
 func LoadConfig() (*Config, error) {
